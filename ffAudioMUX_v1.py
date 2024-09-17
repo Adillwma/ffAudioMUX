@@ -89,7 +89,7 @@ def get_ffmpeg():
 
 
 
-def your_function2():
+def load_video():
     global video_file_loaded, video_file_path
 
     video_file_path = filedialog.askopenfilename(title="Select a video file", filetypes=([("Video Files", "*.mp4 *.avi *.mkv *.mov *.wmv *.flv *.webm *.ogg *.ogv *.mpeg *.mpg *.m4v *.3gp *.3g2 *.ts *.vob *.mxf *.tsv *.mts *.m2ts *.m2v *.divx *.f4v *.rmvb *.asf *.rm *.m1v *.m2v *.m2t *.amv *.mpv *.nut *.dv *.drc")]))
@@ -98,7 +98,7 @@ def your_function2():
     video_file_loaded = True
     check_if_MUX_allowed()
 
-def your_function3():
+def load_audio():
     global audio_file_loaded, audio_file_path
 
     audio_file_path = filedialog.askopenfilename(title="Select a audio file", filetypes=([("Audio Files", "*.ac3 *.eac3 *.flac *.ape *.aac *.wma *.pcm *.wav *.mp3 *.m4a *.ogg *.oga *.wv *.tta *.mka *.opus *.ra *.aif *.aiff *.caf *.au *.alac *.mpc *.tak *.shn *.wv *.wma *.aac *.m4a *.dts *.dtshd *.w64 *.sds")]))
@@ -107,7 +107,7 @@ def your_function3():
     audio_file_loaded = True
     check_if_MUX_allowed()
 
-def your_function4():
+def set_output_dir():
     global output_directory_loaded, output_file_path
     # Extract the file extension from the loaded video path3
     file_extension = os.path.splitext(video_file_path)[-1]
@@ -118,7 +118,7 @@ def your_function4():
     output_directory_loaded = True
     check_if_MUX_allowed()
 
-def your_function5():
+def run_processing():
     command = [ffmpeg_path, '-i', f'{video_file_path}', '-i', f'{audio_file_path}', '-c:v', 'copy', '-map', '0:v:0', '-map', '1:a:0', f'{output_file_path}']
 
     # Run the command
@@ -168,20 +168,20 @@ ffmpeg_label2.pack()
 spacer = tk.Label(root, text="", height=2)
 spacer.pack()
 
-button1 = tk.Button(root, text="Select Video File...", pady=10, command=your_function2)
+button1 = tk.Button(root, text="Select Video File...", pady=10, command=load_video)
 button1.pack()
 
-button2 = tk.Button(root, text="Select Audio File...", pady=10, command=your_function3)
+button2 = tk.Button(root, text="Select Audio File...", pady=10, command=load_audio)
 button2.pack()
 
-button3 = tk.Button(root, text="Select Output Directory", pady=10, command=your_function4)
+button3 = tk.Button(root, text="Select Output Directory", pady=10, command=set_output_dir)
 button3.pack()
 
 # Add vertical space between widgets using empty labels
 spacer = tk.Label(root, text="", height=1)
 spacer.pack()
 
-button4 = tk.Button(root, text="RUN the MUX", pady=10, state=tk.DISABLED, command=your_function5)
+button4 = tk.Button(root, text="RUN the MUX", pady=10, state=tk.DISABLED, command=run_processing)
 button4.pack()
 
 ffmpeg_label6 = tk.Label(root, text="")
